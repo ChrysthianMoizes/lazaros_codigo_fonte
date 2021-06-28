@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="20210628191000-001" author="chrysthian.moizes">
+        <createTable tableName="anexo">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="titulo" type="varchar(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hash" type="varchar(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tamanho" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tipo" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tarefa_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createSequence incrementBy="1" sequenceName="seq_anexo" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="20210628191000-002" author="chrysthian.moizes">
+        <addForeignKeyConstraint baseTableName="anexo" baseColumnNames="tarefa_id" constraintName="anexo_tarefa_fk"
+                                 referencedTableName="tarefa"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+</databaseChangeLog>
