@@ -1,0 +1,10 @@
+
+server:
+  port: 8081
+
+application:
+  minio:
+    url: http://localhost:9000
+    bucket: documentos
+    username: lazaros123
+    password: lazaros123

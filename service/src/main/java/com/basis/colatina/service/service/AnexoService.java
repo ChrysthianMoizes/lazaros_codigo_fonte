@@ -4,8 +4,10 @@ import com.basis.colatina.service.domain.Anexo;
 import com.basis.colatina.service.repository.AnexoRepository;
 import com.basis.colatina.service.service.dto.AnexoDTO;
 import com.basis.colatina.service.service.exception.RegraNegocioException;
+import com.basis.colatina.service.service.feign.DocumentClient;
 import com.basis.colatina.service.service.mapper.AnexoMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,10 @@ public class AnexoService {
     
     private final AnexoMapper anexoMapper;
 
+    private final DocumentClient documentClient;
+
     public List<AnexoDTO> listar() {
+        System.out.println(documentClient.upload());
         List<Anexo> responsaveis = anexoRepository.findAll();
         return anexoMapper.toDto(responsaveis);
     }
