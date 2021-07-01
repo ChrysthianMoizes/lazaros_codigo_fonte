@@ -10,3 +10,8 @@ services:
       file: minio.yml
       service: minio
     container_name: lazaros-minio
+  lazaros-elasticsearch:
+    extends:
+      file: elasticsearch.yml
+      service: elasticsearch
+    container_name: lazaros-elasticsearch

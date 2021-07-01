@@ -22,7 +22,7 @@ public class TarefaDTO implements Serializable {
 
     private LocalDateTime dataInicio;
 
-    private LocalDateTime datatermino;
+    private LocalDateTime dataTermino;
 
     private String tipo;
 

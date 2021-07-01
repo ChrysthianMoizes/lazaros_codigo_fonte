@@ -1,6 +1,9 @@
 spring:
   application:
     name: lazarosservice
+#  data:
+#    elasticsearch:
+#      cluster-nodes: localhost:9200
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/lazaros

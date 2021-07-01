@@ -44,7 +44,7 @@ public class Tarefa implements Serializable {
     private LocalDateTime dataInicio;
 
     @Column(name = "data_termino")
-    private LocalDateTime datatermino;
+    private LocalDateTime dataTermino;
 
     @Column(name = "tipo")
     private String tipo;

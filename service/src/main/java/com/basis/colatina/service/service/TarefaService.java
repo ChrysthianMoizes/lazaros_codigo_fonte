@@ -3,9 +3,11 @@ package com.basis.colatina.service.service;
 import com.basis.colatina.service.domain.Tarefa;
 import com.basis.colatina.service.repository.TarefaRepository;
 import com.basis.colatina.service.service.dto.TarefaDTO;
+import com.basis.colatina.service.service.event.TarefaEvent;
 import com.basis.colatina.service.service.exception.RegraNegocioException;
 import com.basis.colatina.service.service.mapper.TarefaMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,8 @@ public class TarefaService {
     private final TarefaRepository tarefaRepository;
     
     private final TarefaMapper tarefaMapper;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     public List<TarefaDTO> listar() {
         List<Tarefa> responsaveis = tarefaRepository.findAll();
@@ -36,9 +40,10 @@ public class TarefaService {
     }
 
     public TarefaDTO salvar(TarefaDTO dto) {
-        Tarefa Tarefa = tarefaMapper.toEntity(dto);
-        tarefaRepository.save(Tarefa);
-        return tarefaMapper.toDto(Tarefa);
+        Tarefa tarefa = tarefaMapper.toEntity(dto);
+        tarefaRepository.save(tarefa);
+        applicationEventPublisher.publishEvent(new TarefaEvent(tarefa.getId()));
+        return tarefaMapper.toDto(tarefa);
     }
 
     public void excluir(Long id) {
