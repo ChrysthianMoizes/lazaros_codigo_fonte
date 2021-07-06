@@ -1,6 +1,7 @@
 package com.basis.colatina.service.domain.elasticsearch;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Setting(settingPath = "/config/elasticsearch/elasticsearch-config.json")
+@NoArgsConstructor
 public class TarefaDocument extends BaseDocument {
 
     @MultiField(mainField = @Field(type = FieldType.Text, store = true),
@@ -22,16 +24,13 @@ public class TarefaDocument extends BaseDocument {
             })
     private String titulo;
 
-    @MultiField(mainField = @Field(type = FieldType.Date, store = true),
-            otherFields = {@InnerField(suffix = SORT, type = FieldType.Date, store = true)
-            })
-    private LocalDateTime dataInicioPrevista;
+    private String dataInicioPrevista;
 
-    private LocalDateTime dataTerminoPrevista;
+    private String dataTerminoPrevista;
 
-    private LocalDateTime dataInicio;
+    private String dataInicio;
 
-    private LocalDateTime datatermino;
+    private String datatermino;
 
     @MultiField(mainField = @Field(type = FieldType.Text, store = true),
             otherFields = {@InnerField(suffix = SORT, type = FieldType.Text, store = true)
@@ -51,10 +50,10 @@ public class TarefaDocument extends BaseDocument {
     public TarefaDocument(Long id, String titulo, LocalDateTime dataInicioPrevista, LocalDateTime dataTerminoPrevista, LocalDateTime dataInicio, LocalDateTime datatermino, String tipo, String status, String responsavel) {
         this.id = id;
         this.titulo = titulo;
-        this.dataInicioPrevista = dataInicioPrevista;
-        this.dataTerminoPrevista = dataTerminoPrevista;
-        this.dataInicio = dataInicio;
-        this.datatermino = datatermino;
+        this.dataInicioPrevista = dataInicioPrevista.toString();
+        this.dataTerminoPrevista = dataTerminoPrevista.toString();
+        this.dataInicio = dataInicio.toString();
+        this.datatermino = datatermino.toString();
         this.tipo = tipo;
         this.status = status;
         this.responsavel = responsavel;

@@ -2,7 +2,11 @@ package com.basis.colatina.service.resource;
 
 import com.basis.colatina.service.service.TarefaService;
 import com.basis.colatina.service.service.dto.TarefaDTO;
+import com.basis.colatina.service.service.elasticsearch.TarefaElasticsearchService;
+import com.basis.colatina.service.service.filter.TarefaFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,9 +28,11 @@ public class TarefaResource {
     
     private final TarefaService tarefaService;
 
-    @GetMapping
-    public ResponseEntity<List<TarefaDTO>> listar() {
-        List<TarefaDTO> dtos = tarefaService.listar();
+    private final TarefaElasticsearchService tarefaElasticsearchService;
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<TarefaDTO>> listar(@RequestBody TarefaFilter filter, Pageable pageable) {
+        Page<TarefaDTO> dtos = tarefaElasticsearchService.search(filter, pageable);
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
