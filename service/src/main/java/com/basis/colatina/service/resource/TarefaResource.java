@@ -31,8 +31,14 @@ public class TarefaResource {
     private final TarefaElasticsearchService tarefaElasticsearchService;
 
     @PostMapping("/search")
-    public ResponseEntity<Page<TarefaDTO>> listar(@RequestBody TarefaFilter filter, Pageable pageable) {
+    public ResponseEntity<Page<TarefaDTO>> search(@RequestBody TarefaFilter filter, Pageable pageable) {
         Page<TarefaDTO> dtos = tarefaElasticsearchService.search(filter, pageable);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TarefaDTO>> listar() {
+        List<TarefaDTO> dtos = tarefaService.listar();
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 

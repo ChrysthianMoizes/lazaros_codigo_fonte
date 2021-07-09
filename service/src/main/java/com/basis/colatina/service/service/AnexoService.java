@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,6 @@ public class AnexoService {
     private final DocumentClient documentClient;
 
     public List<AnexoDTO> listar() {
-        System.out.println(documentClient.upload());
         List<Anexo> responsaveis = anexoRepository.findAll();
         return anexoMapper.toDto(responsaveis);
     }
@@ -41,9 +41,10 @@ public class AnexoService {
     }
 
     public AnexoDTO salvar(AnexoDTO dto) {
-        Anexo Anexo = anexoMapper.toEntity(dto);
-        anexoRepository.save(Anexo);
-        return anexoMapper.toDto(Anexo);
+        Anexo anexo = anexoMapper.toEntity(dto);
+        anexo.setHash(documentClient.upload());
+        anexoRepository.save(anexo);
+        return anexoMapper.toDto(anexo);
     }
 
     public void excluir(Long id) {
